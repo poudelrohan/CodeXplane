@@ -1,13 +1,14 @@
 import "dotenv/config"
 import express from "express"
 import cors from 'cors'
-import helmet from 'helmet'
+import helmet, { contentSecurityPolicy } from 'helmet'
 import rateLimit from "express-rate-limit"
-
+import { OpenAI } from "openai/client.js"
 
 const app = express()
 
 app.use(helmet())
+
 
 app.use(
     cors({
@@ -22,7 +23,7 @@ const limiter = rateLimit({
     max: 100,
     message: "Too many requests from this IP, Try again later."
 })
-app.use(limiter
-)
+app.use(limiter)
 
-app.use(express.json({limit: '100mb'}))
+app.use(express.json({limit: '10mb'}))
+
